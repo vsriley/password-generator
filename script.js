@@ -17,6 +17,8 @@
     var secondTitle = document.querySelector("h2");
     var passwordBox = document.querySelector("p");
     var buttonBox = document.querySelector("#buttonRow");
+    var copyButton = document.querySelector(".btn-secondary");
+    var passwordButton = document.querySelector(".btn-danger");
 
     pageTitle.setAttribute("style", "text-align: center; padding-bottom: 20px");
     infoBox.setAttribute("style", "box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)");
@@ -91,4 +93,25 @@
 
     generateCharacters();
     generatePassword(numCharacters, passwordCharacters);
+    passwordBox.textContent = password;
+    
+    //generates new password 
+    passwordButton.addEventListener("click", function(){
+        //reset password and password character options
+        password = "";
+        passwordCharacters = [];
+        generateCharacters();
+        generatePassword(numCharacters, passwordCharacters);
+        passwordBox.textContent = password;
+    })
+    
     //create an option for them to copy password to clipboard
+    copyButton.addEventListener("click", function(){
+        var copyPassword = document.createElement("textarea");
+        copyPassword.value = password;
+        document.body.appendChild(copyPassword);
+        copyPassword.select();
+        document.execCommand('copy');
+        document.body.removeChild(copyPassword);  
+        alert("Your password has been copied to your clipboard");
+    })
